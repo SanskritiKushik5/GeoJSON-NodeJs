@@ -1,4 +1,5 @@
 const express = require('express');
+const { findByIdAndRemove } = require('../models/ninja');
 const router = express.Router();
 const Ninja = require('../models/ninja');
 
@@ -17,7 +18,9 @@ router.put('/ninjas/:id', (req, res, next) => {
 });
 
 router.delete('/ninjas/:id', (req, res, next) => {
-    res.send({ type: "DELETE" });
+    Ninja.findByIdAndRemove({_id: req.params.id}).then((ninja) => {
+        res.send(ninja);
+    })
 });
 
 module.exports = router;
