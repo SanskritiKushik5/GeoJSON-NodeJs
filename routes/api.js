@@ -4,7 +4,30 @@ const router = express.Router();
 const Ninja = require('../models/ninja');
 
 router.get('/ninjas', (req, res, next) => {
-    res.send({ type: "GET" });
+    // Ninja.find({}).then((ninjas) => {
+    //     res.send(ninjas);
+    // });
+    Ninja.aggregate(
+        [
+            { "$geoNear": {
+                "near": {
+                    "type": "Point",
+                    "coordinates": [parseFloat(req.query.lng), parseFloat(req.query.lat)] 
+                },
+                "maxDistance": 100000,
+                'distanceField' : 'distance',
+                "spherical": true
+            }}
+        ],
+        function(err, ninjas) {
+            if(!err){
+                res.send(ninjas);
+            }
+            else{
+                res.send("error coming")
+            }
+        }
+    )
 });
 
 router.post('/ninjas', (req, res, next) => {
