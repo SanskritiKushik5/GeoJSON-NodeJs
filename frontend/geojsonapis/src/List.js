@@ -16,16 +16,16 @@ export default function FolderList({ ninjas }) {
             style={{ margin: '2rem' }}
             xs={12}
             spacing={1}
-        >
+        >   
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                <ListItem>
-                    <ListItemAvatar>
-                        <Avatar>
-
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                </ListItem>
+                {ninjas.map((ninja) => (
+                    <ListItem>
+                        <ListItemAvatar>
+                            <Avatar sx={{ bgcolor: ninja.available ? "#24c70e" : "#c72d0e"}}/>
+                        </ListItemAvatar>
+                        <ListItemText primary={ninja.name} secondary={ninja.rank} /> 
+                    </ListItem>
+                ))}
             </List>
         </Grid>
     );

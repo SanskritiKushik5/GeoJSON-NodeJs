@@ -9,6 +9,7 @@ const Card = () => {
 		lng: "",
 		lat: ""
 	});
+    const [ninjas, setNinja] = useState({});
 	const { lng, lat } = find;
 	const onInputChange = e => {
 		setFind({...find,[e.target.name]: e.target.value})
@@ -17,7 +18,7 @@ const Card = () => {
 		e.preventDefault();
 		const result = await axios.get(`http://localhost:8080/api/ninjas/?lng=${lng}&lat=${lat}`);
         console.log(result.data);
-		setFind(result.data);
+		setNinja(result.data);
 	}
     return (
         <>
@@ -62,7 +63,8 @@ const Card = () => {
 			</Grid>
 		</form>	
 		</Grid>
-        <FolderList ninjas = {find}/>
+        {/* {Object.keys(ninjas).length !== 0 && <FolderList ninjas = {ninjas}/>} */}
+        <FolderList ninjas = {ninjas}/>
         </>
     )
 }
